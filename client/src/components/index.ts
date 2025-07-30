@@ -1,0 +1,10 @@
+export { default as Navigation } from './navigation';
+export { default as HeroSection } from './hero-section';
+export { default as CoursesSection } from './courses-section';
+export { default as ServicesSection } from './services-section';
+export { default as TestimonialsSection } from './testimonials-section';
+export { default as ContactSection } from './contact-section';
+export { default as Footer } from './footer';
+export { default as WhatsAppFloat } from './whatsapp-float';
+export { default as CourseModal } from './course-modal';
+export { default as ServiceModal } from './service-modal';
