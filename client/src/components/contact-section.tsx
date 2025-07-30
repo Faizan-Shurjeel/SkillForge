@@ -14,7 +14,7 @@ export default function ContactSection() {
     full_name: "",
     email: "",
     phone: "",
-    project_description: ""
+    project_description: "",
   });
 
   const { toast } = useToast();
@@ -24,7 +24,7 @@ export default function ContactSection() {
     mutationFn: async (data: typeof formData) => {
       const response = await apiRequest("POST", "/api/inquiries", {
         ...data,
-        inquiry_type: "general"
+        inquiry_type: "general",
       });
       return response.json();
     },
@@ -37,7 +37,7 @@ export default function ContactSection() {
         full_name: "",
         email: "",
         phone: "",
-        project_description: ""
+        project_description: "",
       });
       queryClient.invalidateQueries({ queryKey: ["/api/inquiries"] });
     },
@@ -52,7 +52,11 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.full_name || !formData.email || !formData.project_description) {
+    if (
+      !formData.full_name ||
+      !formData.email ||
+      !formData.project_description
+    ) {
       toast({
         title: "Please fill in all required fields",
         variant: "destructive",
@@ -62,10 +66,12 @@ export default function ContactSection() {
     inquiryMutation.mutate(formData);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -74,9 +80,11 @@ export default function ContactSection() {
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Get Started Today</h2>
-          <p className="text-xl text-gray-600">Ready to transform your career? Let's discuss your learning goals.</p>
+          <p className="text-xl text-gray-600">
+            Ready to transform your career? Let's discuss your learning goals.
+          </p>
         </div>
-        
+
         <div className="grid lg:grid-cols-2 gap-12">
           <div>
             <h3 className="text-2xl font-semibold mb-6">Contact Information</h3>
@@ -110,15 +118,18 @@ export default function ContactSection() {
               </div>
             </div>
           </div>
-          
+
           <Card className="bg-white rounded-2xl apple-shadow">
             <CardContent className="p-8">
               <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <Label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                    htmlFor="full_name"
+                  >
                     Full Name *
-                  </Label>
+                  </label>
                   <Input
                     id="full_name"
                     name="full_name"
@@ -131,9 +142,12 @@ export default function ContactSection() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
                     Email Address *
-                  </Label>
+                  </label>
                   <Input
                     id="email"
                     name="email"
@@ -146,9 +160,12 @@ export default function ContactSection() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
                     Phone Number
-                  </Label>
+                  </label>
                   <Input
                     id="phone"
                     name="phone"
@@ -160,9 +177,12 @@ export default function ContactSection() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="project_description" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label
+                    htmlFor="project_description"
+                    className="block text-sm font-medium text-gray-700 mb-2"
+                  >
                     Message *
-                  </Label>
+                  </label>
                   <Textarea
                     id="project_description"
                     name="project_description"
@@ -174,8 +194,8 @@ export default function ContactSection() {
                     required
                   />
                 </div>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   disabled={inquiryMutation.isPending}
                   className="w-full bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors"
                 >

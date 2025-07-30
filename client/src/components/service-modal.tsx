@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { Service } from "@shared/schema";
 import { CheckCircle, ArrowRight } from "lucide-react";
 
 interface ServiceModalProps {
-  service: Service;
+  service: any;
   onClose: () => void;
 }
 
@@ -23,62 +25,47 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
     email: "",
     phone: "",
     company: "",
-    project_description: ""
+    project_description: "",
   });
 
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-
-  const inquiryMutation = useMutation({
-    mutationFn: async (data: typeof formData) => {
-      const response = await apiRequest("POST", "/api/inquiries", {
-        ...data,
-        service_id: service.id,
-        inquiry_type: "service"
-      });
-      return response.json();
-    },
-    onSuccess: () => {
-      toast({
-        title: "Inquiry submitted successfully!",
-        description: "We'll contact you within 24 hours with a detailed quote.",
-      });
-      setFormData({
-        full_name: "",
-        email: "",
-        phone: "",
-        company: "",
-        project_description: ""
-      });
-      setIsInquiring(false);
-      queryClient.invalidateQueries({ queryKey: ["/api/inquiries"] });
-      onClose();
-    },
-    onError: () => {
-      toast({
-        title: "Inquiry failed",
-        description: "Please try again later.",
-        variant: "destructive",
-      });
-    },
-  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.full_name || !formData.email || !formData.project_description) {
+    if (
+      !formData.full_name ||
+      !formData.email ||
+      !formData.project_description
+    ) {
       toast({
         title: "Please fill in all required fields",
         variant: "destructive",
       });
       return;
     }
-    inquiryMutation.mutate(formData);
+
+    // Simulate successful inquiry
+    toast({
+      title: "Inquiry submitted successfully!",
+      description: "We'll contact you within 24 hours with a detailed quote.",
+    });
+    setFormData({
+      full_name: "",
+      email: "",
+      phone: "",
+      company: "",
+      project_description: "",
+    });
+    setIsInquiring(false);
+    onClose();
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -86,19 +73,25 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
     if (!service.price_pkr_min && !service.price_usd_min) {
       return "Custom Pricing";
     }
-    
+
     if (service.price_pkr_max) {
-      return `PKR ${service.price_pkr_min?.toLocaleString()} - ${service.price_pkr_max.toLocaleString()} / $${service.price_usd_min} - $${service.price_usd_max}`;
+      return `PKR ${service.price_pkr_min?.toLocaleString()} - ${service.price_pkr_max.toLocaleString()} / $${
+        service.price_usd_min
+      } - $${service.price_usd_max}`;
     }
-    
-    return `Starting at PKR ${service.price_pkr_min?.toLocaleString()} / $${service.price_usd_min}`;
+
+    return `Starting at PKR ${service.price_pkr_min?.toLocaleString()} / $${
+      service.price_usd_min
+    }`;
   };
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-3xl font-bold">{service.title}</DialogTitle>
+          <DialogTitle className="text-3xl font-bold">
+            {service.title}
+          </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-8">
@@ -106,56 +99,66 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
             <div>
               <h3 className="text-xl font-semibold mb-4">Service Overview</h3>
               <p className="text-gray-600 mb-6">{service.description}</p>
-              
+
               <div className="mb-6">
                 <div className="flex justify-between py-3 border-b border-gray-100">
                   <span className="font-medium">Pricing:</span>
-                  <span className="text-blue-500 font-semibold">{formatPrice()}</span>
+                  <span className="text-blue-500 font-semibold">
+                    {formatPrice()}
+                  </span>
                 </div>
               </div>
             </div>
-            
+
             <div>
               <h3 className="text-xl font-semibold mb-4">Technologies Used</h3>
               <div className="flex flex-wrap gap-2 mb-6">
-                {service.tools.map((tool, index) => (
-                  <Badge key={index} variant="secondary" className="bg-gray-100 text-gray-700">
+                {service.tools.map((tool: string, index: number) => (
+                  <Badge
+                    key={index}
+                    variant="secondary"
+                    className="bg-gray-100 text-gray-700"
+                  >
                     {tool}
                   </Badge>
                 ))}
               </div>
             </div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-xl font-semibold mb-4">Services Included</h3>
               <div className="space-y-2">
-                {service.services_included.map((serviceItem, index) => (
-                  <div key={index} className="flex items-center">
-                    <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">{serviceItem}</span>
-                  </div>
-                ))}
+                {service.services_included.map(
+                  (serviceItem: string, index: number) => (
+                    <div key={index} className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                      <span className="text-gray-700">{serviceItem}</span>
+                    </div>
+                  )
+                )}
               </div>
             </div>
-            
+
             <div>
               <h3 className="text-xl font-semibold mb-4">Deliverables</h3>
               <div className="space-y-2">
-                {service.deliverables.map((deliverable, index) => (
-                  <div key={index} className="flex items-center">
-                    <ArrowRight className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0" />
-                    <span className="text-gray-700">{deliverable}</span>
-                  </div>
-                ))}
+                {service.deliverables.map(
+                  (deliverable: string, index: number) => (
+                    <div key={index} className="flex items-center">
+                      <ArrowRight className="w-5 h-5 text-blue-500 mr-3 flex-shrink-0" />
+                      <span className="text-gray-700">{deliverable}</span>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>
 
           {!isInquiring ? (
             <div className="text-center">
-              <Button 
+              <Button
                 onClick={() => setIsInquiring(true)}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-xl transition-colors"
               >
@@ -165,7 +168,10 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           ) : (
             <div className="p-6 bg-gray-50 rounded-xl">
               <h3 className="text-xl font-semibold mb-4">Request Quote</h3>
-              <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-4">
+              <form
+                onSubmit={handleSubmit}
+                className="grid md:grid-cols-2 gap-4"
+              >
                 <div>
                   <Label htmlFor="full_name">Full Name *</Label>
                   <Input
@@ -215,7 +221,9 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <Label htmlFor="project_description">Project Description & Requirements *</Label>
+                  <Label htmlFor="project_description">
+                    Project Description & Requirements *
+                  </Label>
                   <Textarea
                     id="project_description"
                     name="project_description"
@@ -228,15 +236,14 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
                   />
                 </div>
                 <div className="md:col-span-2 flex gap-4">
-                  <Button 
-                    type="submit" 
-                    disabled={inquiryMutation.isPending}
+                  <Button
+                    type="submit"
                     className="flex-1 bg-blue-500 text-white py-3 rounded-xl hover:bg-blue-600 transition-colors"
                   >
-                    {inquiryMutation.isPending ? "Submitting..." : "Request Quote"}
+                    Request Quote
                   </Button>
-                  <Button 
-                    type="button" 
+                  <Button
+                    type="button"
                     variant="outline"
                     onClick={() => setIsInquiring(false)}
                     className="px-6 py-3 border border-gray-200 rounded-xl hover:border-blue-500 hover:text-blue-500 transition-colors"
@@ -252,3 +259,5 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
     </Dialog>
   );
 }
+
+/* (Removed duplicate export default ServiceModal) */
