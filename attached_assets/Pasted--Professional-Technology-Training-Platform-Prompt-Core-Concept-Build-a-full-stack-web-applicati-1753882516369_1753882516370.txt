@@ -1,0 +1,209 @@
+# Professional Technology Training Platform Prompt
+
+## Core Concept
+Build a full-stack web application called "TechNexus Academy" - a modern platform for showcasing technology training courses and professional development services with an interactive, visually stunning interface that surprises users with its professional elegance and functionality.
+
+## Visual Design Requirements
+- Create a dark-themed UI with vibrant gradient accents that give a futuristic, high-tech feel
+- Implement subtle particle animations in the background that respond to mouse movement
+- Use a 3D card interface with parallax effects for courses and services
+- Include animated micro-interactions for all interactive elements
+- Add smooth transition effects between sections
+- Incorporate a subtle glow effect around important UI elements
+- Design a floating action menu that expands with relevant options based on the user's current section
+
+## Functional Components
+
+### 1. Homepage & Hero Section
+- Create a hero section with a 3D animated representation of technology concepts (AI, coding, robotics)
+- Implement an auto-typing effect showcasing different technology specialties
+- Add a particle-based background that reacts to cursor movement
+- Include a prominent CTA button with a subtle hover animation
+
+### 2. Course Catalog Section
+- Design an interactive grid of course cards with 3D hover effects
+- Each card should display:
+  - Course title with an appropriate icon
+  - Brief description
+  - Custom gradient background based on technology category
+  - Price in both PKR and USD
+- When a card is clicked, it should expand into a detailed modal with:
+  - Week-by-week course outline in an interactive timeline format
+  - Course details (duration, level, certification)
+  - Topics covered with visual icons
+  - Tools taught with logos
+  - An enrollment form with fields for:
+    - Full Name
+    - Contact Information
+    - Prior Experience
+    - Learning Goals
+
+### 3. Professional Services Section
+- Create a horizontal scrolling gallery of service cards
+- Each service card should include:
+  - Service title and icon
+  - Description
+  - Representative image
+  - Starting price
+- When clicked, expand to show:
+  - Detailed service description
+  - List of included services with checkmark animations
+  - Tools and technologies used with icon badges
+  - Expected deliverables in a visually distinct format
+  - A project inquiry form with fields for:
+    - Full Name
+    - Contact Information
+    - Project Description/Requirements
+
+### 4. Interactive Contact Features
+- Design a floating WhatsApp button with a tooltip that appears on hover
+- Implement a "Schedule a Consultation" feature with an interactive calendar
+- Add an AI-powered chatbot in the corner that can answer basic questions about courses and services
+- Create a contact form with real-time validation and animated success/error states
+
+### 5. Testimonials & Success Stories
+- Design a carousel of client testimonials with profile images and ratings
+- Include a "Success Stories" section with before/after statistics and results
+- Add micro-animations for star ratings and satisfaction metrics
+
+### 6. Backend Requirements
+- Implement secure form submission with validation
+- Create an admin dashboard for managing course content and service offerings
+- Set up email notification system for new inquiries
+- Build a database to store course information, service details, and customer inquiries
+- Implement analytics to track popular courses and services
+
+### 7. Interactive Elements
+- Add a "Course Recommender" tool that suggests courses based on user's interests and goals
+- Create a "Technology Stack Visualizer" showing relationships between different technologies taught
+- Implement a "Career Path Planner" showing potential progression through multiple courses
+
+## Data Structure (Courses)
+For each course, include the following data:
+
+{
+  id: [unique identifier],
+  title: [course name],
+  description: [brief overview],
+  icon: [relevant emoji or icon],
+  gradient: [custom CSS gradient],
+  image: [relevant image URL],
+  price: { 
+    pkr: [price in PKR], 
+    usd: [price in USD]
+  },
+  outline: [week-by-week breakdown in markdown format],
+  details: {
+    duration: [time period],
+    level: [difficulty level],
+    topics: [array of main topics],
+    tools: [array of tools taught],
+    certification: [certification offered]
+  }
+}
+
+
+## Data Structure (Services)
+For each service, include:
+
+{
+  id: [unique identifier],
+  title: [service name],
+  description: [brief overview],
+  icon: [relevant emoji or icon],
+  gradient: [custom CSS gradient],
+  image: [relevant image URL],
+  price: { 
+    pkr: [starting price in PKR], 
+    usd: [starting price in USD]
+  },
+  services: [array of specific services offered],
+  tools: [array of tools and technologies used],
+  deliverables: [array of expected deliverables]
+}
+
+
+## Specific Courses to Include
+1. *AI/Machine Learning Mastery*
+   - 12-16 weeks program covering deep learning, neural networks, computer vision, NLP
+   - Tools: TensorFlow, PyTorch, Scikit-learn, Keras
+   - Price: PKR 15,000 / $50
+
+2. *Python Development & Analytics*
+   - 8-12 weeks from fundamentals to advanced topics
+   - Focus on web frameworks, data analysis, API development
+   - Tools: Django, Flask, FastAPI, Pandas, NumPy
+   - Price: PKR 12,000 / $40
+
+3. *Data Science & Analytics*
+   - 14-18 weeks covering statistics, data visualization, predictive modeling
+   - Tools: R, Python, Tableau, Power BI, SQL
+   - Price: PKR 14,000 / $47
+
+4. *Full-Stack Web Development*
+   - 10-14 weeks covering frontend, backend, databases, deployment
+   - Tools: React, Node.js, MongoDB, AWS, Docker
+   - Price: PKR 13,000 / $43
+
+5. *Mobile Application Development*
+   - 12-16 weeks covering React Native, Flutter, native features
+   - Tools: React Native, Flutter, Xcode, Android Studio
+   - Price: PKR 14,500 / $48
+
+6. *Robotics & Automation*
+   - 18-22 weeks covering robotics fundamentals, programming, vision systems
+   - Tools: ROS, Python, C++, MATLAB, CAD Software
+   - Price: PKR 15,000 / $50
+
+7. *Cybersecurity Course*
+   - 10-12 weeks covering ethical hacking, network security, digital forensics
+   - Tools: Kali Linux, Metasploit, Wireshark, Nmap
+   - Price: PKR 11,000 / $37
+
+## Specific Services to Include
+1. *Bespoke AI Solutions*
+   - Custom ML models, AI integration, data pipeline development
+   - Starting price: PKR 15,000 / $50
+
+2. *Enterprise Web Solutions*
+   - Custom web applications, e-commerce solutions, CMS development
+   - Starting price: PKR 12,000 / $40
+
+3. *Mobile App Development Services*
+   - iOS/Android apps, cross-platform development, UI/UX design
+   - Starting price: PKR 18,000 / $60
+
+4. *Robotics & Automation Projects*
+   - Industrial automation, robot programming, IoT integration
+   - Starting price: PKR 25,000 / $85
+
+5. *Network & Cyber Security Solutions*
+   - Network design, security assessment, firewall setup
+   - Starting price: PKR 500 - 8,000 / $2 - $25
+
+6. *Technology Consulting*
+   - Strategic technology consulting for digital transformation
+   - Custom pricing based on scope
+
+## Surprise Elements
+1. *Interactive Technology Map*: A 3D globe visualization showing different technology domains and their interconnections that users can spin and explore
+
+2. *Personalized Learning Path Generator*: An AI tool that creates a customized learning roadmap based on the user's goals and current skill level
+
+3. *Augmented Reality Course Preview*: Allow users to scan a QR code to see a 3D representation of course projects through their phone camera
+
+4. *Dark Mode/Light Mode Toggle*: With a stunning animation transition between modes
+
+5. *Voice-Activated Navigation*: Allow users to navigate the site using voice commands
+
+6. *Skill Assessment Tool*: Interactive quizzes to help users identify which courses would benefit them most
+
+7. *Real-Time Technology Trend Feed*: A sidebar showing latest technology news and trends relevant to the courses offered
+
+8. *"Meet Your Instructor" Feature*: Interactive profiles of instructors with 3D avatars and voice samples
+
+9. *Course Completion Simulator*: A visual representation of career opportunities after completing specific courses or combinations of courses
+
+10. *Interactive Certificate Preview*: Allow users to see what their certificate would look like with their name on it
+
+This detailed prompt encompasses all the functionality from the original project while adding numerous enhancements and surprise elements that will create a truly memorable and professional user experience.
